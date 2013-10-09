@@ -1,2 +1,7 @@
 bin
 lib
+.hxtypes/
+.settings
+.project
+.hxtypes/proj_0.xml
+.hxtypes/tmp_proj_0.xml

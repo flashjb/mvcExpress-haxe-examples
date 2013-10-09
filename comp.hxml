@@ -18,15 +18,15 @@
 -debug
 -D fdb
 
-	
-#--next
-#--next
-#we gonna try later
-#############
-# js target #
-#############
+--next
+
+
+#################
+# js helloworld #
+#################
 
 -main helloworld.Main 
+#-lib mvcexpress
 -js bin/helloworld/js/Main.js
 -lib openfl
 -lib openfl-html5
