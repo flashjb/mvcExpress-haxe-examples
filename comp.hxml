@@ -1,0 +1,47 @@
+####################
+# flash helloworld #
+####################
+
+-main helloworld.Main 
+#-lib mvcexpress
+-cp lib
+-cp src
+-swf-version 11
+-swf bin/helloworld/flash/Main.swf
+-swf-header 1024:768:60:FFFFFF
+--no-inline
+
+################
+#for debugging #
+################
+-D debug
+-debug
+-D fdb
+
+	
+#--next
+#--next
+#we gonna try later
+#############
+# js target #
+#############
+
+-main helloworld.Main 
+-js bin/helloworld/js/Main.js
+-lib openfl
+-lib openfl-html5
+-cp mvcexpress
+-cp src
+-D tools=1
+-D openfl_ver=1.0.8
+-D openfl
+-D html5
+-D html
+-D web
+--remap flash:flash
+
+################
+#for debugging #
+################
+-D debug
+-debug
