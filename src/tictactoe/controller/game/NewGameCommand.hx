@@ -10,10 +10,12 @@ import tictactoe.model.GameProxy;
 
 class NewGameCommand extends Command {
 
-	@:meta(Inject())
+	@inject
 	public var gameBoardProxy : GameBoardProxy;
-	@:meta(Inject())
+	
+	@inject
 	public var gameProxy : GameProxy;
+	
 	public function execute(params : Dynamic) : Void {
 		gameBoardProxy.clearBoard();
 		gameProxy.enable();

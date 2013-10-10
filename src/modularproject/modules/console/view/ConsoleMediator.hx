@@ -12,7 +12,7 @@ import mvcexpress.mvc.Mediator;
 
 class ConsoleMediator extends Mediator {
 
-	@:meta(Inject())
+	@inject
 	public var view : Console;
 	override function onRegister() : Void {
 		trace("ConsoleMediator.onRegister");

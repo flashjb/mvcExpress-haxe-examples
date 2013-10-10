@@ -14,12 +14,14 @@ import tictactoe.model.LineVO;
 
 class GameScreenMediator extends Mediator {
 
-	@:meta(Inject())
+	@inject
 	public var view : GameScreen;
-	@:meta(Inject())
+	
+	@inject
 	public var gameBoardProxy : GameBoardProxy;
+	
 	override function onRegister() : Void {
-		//trace("GameScreenMediator.onRegister");
+		trace("GameScreenMediator.onRegister");
 		//
 		view.addEventListener(GameScreenEvent.CELL_CLICK, handleCellClick);
 		view.newGameDispatcher.addEventListener(MouseEvent.CLICK, handleNewGameClick);
@@ -29,11 +31,12 @@ class GameScreenMediator extends Mediator {
 	}
 
 	function handleCellClick(event : GameScreenEvent) : Void {
+		trace("click click", event.xCell, event.yCell);
 		sendMessage(ViewMsg.CELL_CLICKED, new Point(event.xCell, event.yCell));
 	}
 
 	function handleNewGameClick(event : MouseEvent) : Void {
-		//trace("GameScreenMediator.handleNewGameClick > event : " + event);
+		trace("GameScreenMediator.handleNewGameClick > event : " + event);
 		sendMessage(ViewMsg.NEW_GAME_CLICKED);
 	}
 

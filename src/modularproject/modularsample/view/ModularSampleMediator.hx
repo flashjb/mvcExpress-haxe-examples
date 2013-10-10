@@ -17,7 +17,7 @@ import mvcexpress.mvc.Mediator;
 
 class ModularSampleMediator extends MediatorScoped {
 
-	@:meta(Inject())
+	@inject
 	public var view : ModularSample;
 	var console1 : Console;
 	var console2 : Console;

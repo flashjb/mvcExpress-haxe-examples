@@ -11,5 +11,8 @@ class LineVO {
 	public var tokenId : Int;
 	public var fromPos : Point;
 	public var toPos : Point;
+	
+	public function new (){
+	}
 }
 

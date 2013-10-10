@@ -9,8 +9,14 @@ import tictactoe.constants.TokenId;
 
 class GameProxy extends Proxy {
 
-	var currentToken : Int;
-	var isEnabled : Bool;
+	var currentToken : Int ;
+	var isEnabled 	 : Bool ;
+	
+	override public function onRegister() : Void {
+		currentToken = TokenId.TIC;
+		isEnabled = true;
+	}
+	
 	// current token
 	public function switchCurrentToken() : Void {
 		currentToken *= -1;

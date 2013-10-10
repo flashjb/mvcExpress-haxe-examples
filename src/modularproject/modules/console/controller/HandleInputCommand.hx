@@ -9,7 +9,7 @@ import mvcexpress.mvc.Command;
 
 class HandleInputCommand extends Command {
 
-	@:meta(Inject())
+	@inject
 	public var consoleLogProxy : ConsoleLogProxy;
 	public function execute(messageText : String) : Void {
 		//trace("HandleInputCommand.execute > messageText : " + messageText);

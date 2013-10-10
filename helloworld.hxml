@@ -1,13 +1,13 @@
 ####################
-# flash tictactoe #
+# flash helloworld #
 ####################
 
--main tictactoe.Main 
+-main helloworld.Main 
 #-lib mvcexpress
 -cp lib
 -cp src
 -swf-version 11
--swf bin/tictactoe/flash/Main.swf
+-swf bin/helloworld/flash/Main.swf
 -swf-header 1024:768:60:FFFFFF
 --no-inline
 
@@ -22,12 +22,12 @@
 
 
 #################
-# js tictactoe #
+# js helloworld #
 #################
 
--main tictactoe.Main 
+-main helloworld.Main 
 #-lib mvcexpress
--js bin/tictactoe/js/Main.js
+-js bin/helloworld/js/Main.js
 -lib openfl
 -lib openfl-html5
 -cp lib

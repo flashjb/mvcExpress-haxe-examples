@@ -7,19 +7,19 @@ package tictactoe;
 import flash.display.Sprite;
 import flash.events.Event;
 
-@:meta(Frame(factoryClass="ticTacToe.Preloader"))
-class Main extends Sprite {
+//@:meta(Frame(factoryClass="ticTacToe.Preloader"))
+class Main extends Sprite 
+{
 
 	var module : MainModule;
-	public function new() {
-		if(stage)  {
+	public function new() 
+	{
+		super();
+		if( stage != null )  {
 			init();
-		}
-
-		else  {
+		} else  {
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
-
 	}
 
 	function init(event : Event = null) : Void {
@@ -33,5 +33,9 @@ class Main extends Sprite {
 		module.start(this);
 	}
 
+	static public function main() 
+	{
+		flash.Lib.current.addChild(new Main());
+	}
 }
 

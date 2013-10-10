@@ -12,12 +12,11 @@ import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import tictactoe.constants.TokenId;
-import tictactoe.view.gamescreen.components.BoardBackground;
-import tictactoe.view.gamescreen.components.NewGameButton;
-import tictactoe.view.gamescreen.components.Tic;
-import tictactoe.view.gamescreen.components.Toe;
+import flash.display.Shape;
+import flash.text.TextFieldAutoSize;
 
-class GameScreen extends Sprite {
+class GameScreen extends Sprite 
+{
 
 	static var CELL_SIZE : Float = 100;
 	var backGround : BoardBackground;
@@ -27,7 +26,9 @@ class GameScreen extends Sprite {
 	var lineHolder : Sprite;
 	//
 	public var newGameDispatcher : EventDispatcher;
-	public function new() {
+	public function new() 
+	{
+		super();
 		tokens = new Array<Sprite>();
 		// add game board view.
 		backGround = new BoardBackground();
@@ -36,6 +37,8 @@ class GameScreen extends Sprite {
 		backGround.y = 50;
 		// listen for board clicks
 		backGround.addEventListener(MouseEvent.CLICK, handleBackClick);
+		
+		
 		// add new game button FXG
 		newGameButton = new NewGameButton();
 		this.addChild(newGameButton);
@@ -49,8 +52,8 @@ class GameScreen extends Sprite {
 		newGameTF.text = "NEW GAME";
 		newGameTF.selectable = false;
 		newGameTF.mouseEnabled = false;
-		newGameTF.width = newGameButton.width;
-		newGameTF.height = newGameButton.height;
+		newGameTF.width = 150;
+		
 		var newGameFormat : TextFormat = new TextFormat();
 		newGameFormat.size = 20;
 		newGameFormat.font = "Verdana";
@@ -73,16 +76,15 @@ class GameScreen extends Sprite {
 	}
 
 	public function addToken(cellCords : Point, cellToken : Int) : Void {
-		//trace( "GameScreen.addTocken > cellCords : " + cellCords + ", cellToken : " + cellToken );
-		var token : Sprite;
+		trace( "GameScreen.addTocken > cellCords : " + cellCords + ", cellToken : " + cellToken );
+		var token : Sprite = null;
 		if(cellToken == TokenId.TIC)  {
 			token = new Tic();
 		}
-
 		else if(cellToken == TokenId.TOE)  {
 			token = new Toe();
 		}
-		if(token)  {
+		if( token != null )  {
 			token.x = cellCords.x * CELL_SIZE;
 			token.y = cellCords.y * CELL_SIZE;
 			tokenHolder.addChild(token);
@@ -91,18 +93,102 @@ class GameScreen extends Sprite {
 	}
 
 	public function clearBoard() : Void {
-		while(tokens.length) {
+		while(tokens.length != 0) {
 			tokenHolder.removeChild(tokens.pop());
 		}
 
 		lineHolder.graphics.clear();
+		if( this.contains(lineHolder) )
+			this.removeChild(lineHolder);
 	}
 
 	public function drawLine(fromPos : Point, toPos : Point) : Void {
+		lineHolder.graphics.clear();
 		lineHolder.graphics.lineStyle(20, 0x00F23D, 0.8);
 		lineHolder.graphics.moveTo(fromPos.x * CELL_SIZE + CELL_SIZE / 2, fromPos.y * CELL_SIZE + CELL_SIZE / 2);
 		lineHolder.graphics.lineTo(toPos.x * CELL_SIZE + CELL_SIZE / 2, toPos.y * CELL_SIZE + CELL_SIZE / 2);
+		this.addChild(lineHolder);
 	}
 
+}
+
+class BoardBackground extends Sprite
+{
+	public function new()
+	{
+		super();
+		
+		graphics.lineStyle(3, 0xBDBDBD, 1);
+		graphics.beginFill(0xEEEEEE, 1);
+		graphics.drawRoundRect(0, 0, 300, 300, 10, 10);
+		graphics.endFill();
+		
+		graphics.lineStyle(3, 0xBDBDBD, 1);
+		graphics.moveTo(100, 0);
+		graphics.lineTo(100, 300);
+		graphics.moveTo(200, 0);
+		graphics.lineTo(200, 300);
+		graphics.moveTo(  0, 100);
+		graphics.lineTo(300, 100);
+		graphics.moveTo(  0, 200);
+		graphics.lineTo(300, 200);
+		graphics.endFill();
+
+		mouseChildren = false;
+		mouseEnabled  = true;
+	}
+}
+
+class NewGameButton extends Sprite
+{
+	public function new()
+	{
+		super();
+		
+		graphics.lineStyle(5, 0x858189, 1);
+		graphics.beginFill(0xD1FDC6, 1);
+		graphics.drawRect(0, 0, 150, 30);
+		graphics.endFill();
+		
+		mouseChildren = false;
+		mouseEnabled  = true;
+	}
+}
+
+class Toe extends Sprite
+{
+	public function new()
+	{
+		super();
+		
+		graphics.lineStyle(10, 0xFF0000, 1);
+		graphics.beginFill(0x000000, 0);
+		graphics.drawCircle(50, 50, 40);
+		graphics.endFill();
+
+		mouseChildren = false;
+		mouseEnabled  = false;
+	}
+}
+
+class Tic extends Sprite
+{
+	public function new()
+	{
+		super();
+		
+		graphics.lineStyle(10, 0x0000FF, 1);
+		graphics.beginFill(0x000000, 0);
+		graphics.moveTo(80, 20);
+		graphics.lineTo(20, 80);
+		graphics.lineStyle(10, 0x0000FF, 1);
+		graphics.beginFill(0x000000, 0);
+		graphics.moveTo(20, 20);
+		graphics.lineTo(80, 80);
+		graphics.endFill();
+		
+		mouseChildren = false;
+		mouseEnabled  = false;
+	}
 }
 

@@ -11,7 +11,7 @@ import mvcexpress.mvc.Command;
 
 class HandleTargetedMessageCommand extends Command {
 
-	@:meta(Inject())
+	@inject
 	public var consoleLogProxy : ConsoleLogProxy;
 	public function execute(consoleParams : ConsoleParams) : Void {
 		var i : Int = 0;

@@ -9,7 +9,7 @@ import tictactoe.view.gamescreen.GameScreen;
 
 class MainMediator extends Mediator {
 
-	@:meta(Inject())
+	@inject
 	public var view : Main;
 	var gameScreen : GameScreen;
 	override function onRegister() : Void {

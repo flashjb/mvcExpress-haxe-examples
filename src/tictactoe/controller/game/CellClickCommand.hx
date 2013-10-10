@@ -12,12 +12,20 @@ import tictactoe.model.LineVO;
 
 class CellClickCommand extends Command {
 
-	@:meta(Inject())
+	@inject
 	public var gameBoardProxy : GameBoardProxy;
-	@:meta(Inject())
+	
+	@inject
 	public var gameProxy : GameProxy;
-	public function execute(cellCords : Point) : Void {
-		//trace( "CellClickCommand.execute > cellCords : " + cellCords );
+	
+	public function new (){
+		super();
+	}
+	
+	
+	public function execute(cellCords : Point) : Void 
+	{
+		trace( "CellClickCommand.execute > cellCords : " + cellCords );
 		if(gameProxy.getIsEnabled())  {
 			if(gameBoardProxy.isCellEmpty(cellCords))  {
 				//
@@ -25,7 +33,7 @@ class CellClickCommand extends Command {
 				gameProxy.switchCurrentToken();
 				//
 				var lineVo : LineVO = gameBoardProxy.findLine();
-				if(lineVo)  {
+				if( lineVo != null )  {
 					trace("lineVo : " + lineVo);
 					// block game...
 					gameProxy.disable();
