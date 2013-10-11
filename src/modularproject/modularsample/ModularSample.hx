@@ -1,42 +1,65 @@
-//import com.mindscriptact.mvcExpressLogger.MvcExpressLogger;
+//import modularproject.mvcExpressLogger.MvcExpressLogger;
 /**
  * COMMENT
  * @author Raimundas Banevicius (http://www.mindscriptact.com/)
  */
 package modularproject.modularsample;
 
-import flash.display.Sprite;
-import flash.display.StageAlign;
-import flash.display.StageScaleMode;
+import mvcexpress.modules.ModuleSprite;
 import modularproject.global.ModuleNames;
-import modularproject.modularsample.controller.setup.InitModularSampleCommand;
-import modularproject.modularsample.controller.setup.SetUpPermissionsCommand;
-import modularproject.modularsample.controller.setup.SetUpViewCommand;
+import modularproject.global.ScopeNames;
 import modularproject.modularsample.msg.DataMessages;
 import modularproject.modularsample.msg.Messages;
 import modularproject.modularsample.msg.ViewMessages;
-import mvcexpress.extensions.scoped.modules.ModuleScoped;
-import mvcexpress.modules.ModuleCore;
-import mvcexpress.utils.CheckClassStringConstants;
+import modularproject.modularsample.view.ModularSampleMediator;
+import mvcexpress.utils.MvcExpressTools;
+import flash.display.StageAlign;
+import flash.display.StageScaleMode;
+import flash.events.Event;
 
-class ModularSample extends Sprite {
+class ModularSample extends ModuleSprite 
+{
 
-	public var module : ModuleScoped;
-	public function new() {
-		module = new ModuleScoped(ModuleNames.SHELL);
-		//CONFIG::debug {
+	public function new() 
+	{
+		super(ModuleNames.SHELL);
+		
+		#if debug
 		// add mvcExpress logger for debugging. (press CTRL + ` to open it.)
-		//MvcExpressLogger.init(this.stage);
-		//checkClassStringConstants(Messages, DataMessages, ViewMessages);
-		//}
+			//MvcExpressLogger.init(this.stage);
+			MvcExpressTools.checkClassStringConstants([Messages, DataMessages, ViewMessages]);
+		#end
 		//
+		if( stage != null )
+		{
+			_stageInit();
+		}else{
+			addEventListener(Event.ADDED_TO_STAGE, _stageInit);
+		}
+	}
+	function _stageInit( e: Event = null ):Void
+	{
+		removeEventListener(Event.ADDED_TO_STAGE, _stageInit);
 		this.stage.align = StageAlign.TOP_LEFT;
 		this.stage.scaleMode = StageScaleMode.NO_SCALE;
+	}
+	
+	override function onInit():Void
+	{
 		trace("ModularSampleShellModule.onInit");
-		module.executeCommand(SetUpPermissionsCommand);
-		module.executeCommand(SetUpViewCommand);
-		module.executeCommand(InitModularSampleCommand, this);
+
+		// set permision te send messages to this scope.
+		registerScope(ScopeNames.CONSOLE_SCOPE, true, false);
+
+		mediatorMap.map(ModularSample, ModularSampleMediator);
+
+		mediatorMap.mediate(this);
+
 	}
 
+	static public function main() 
+	{
+		flash.Lib.current.addChild(new ModularSample());
+	}
 }
 

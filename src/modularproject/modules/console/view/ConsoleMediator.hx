@@ -10,11 +10,14 @@ import modularproject.modules.console.msg.ConsoleDataMessages;
 import modularproject.modules.console.msg.ConsoleViewMessages;
 import mvcexpress.mvc.Mediator;
 
-class ConsoleMediator extends Mediator {
+class ConsoleMediator extends Mediator 
+{
 
 	@inject
 	public var view : Console;
-	override function onRegister() : Void {
+	
+	override function onRegister() : Void
+	{
 		trace("ConsoleMediator.onRegister");
 		view.inputBtn.addEventListener(MouseEvent.CLICK, handleInputText);
 		addHandler(ConsoleDataMessages.MESSAGE_ADDED, handleMessageAdded);
@@ -25,23 +28,36 @@ class ConsoleMediator extends Mediator {
 		trace("ConsoleMediator.onRemove");
 	}
 
-	function handleInputText(event : MouseEvent) : Void {
-		trace("Console.handleTextInput > event : " + event);
-		if(view.inputTf.text)  {
-			sendMessage(ConsoleViewMessages.INPUT_MESSAGE, view.inputTf.text);
-			view.inputTf.text = "";
-		}
-
-		else  {
+	function handleInputText(event : MouseEvent) : Void
+	{
+		var inputtext :String = "";
+		
+		#if flash
+			inputtext = view.inputTf.text;
+			trace("Console.handleTextInput > event : " + event + ".inputTf.text:"+inputtext);
+		#elseif js
+			inputtext = Reflect.field(view.inputTf, 'nmeGraphics').nmeSurface.innerHTML;
+			trace("Console.handleTextInput > event : " + event + ".get_text	:"+ inputtext );
+		#end
+		
+		if( inputtext != "" )  
+		{
+			sendMessage(ConsoleViewMessages.INPUT_MESSAGE, inputtext);
+			
+			#if flash
+				view.inputTf.text = "";
+			#elseif js
+				Reflect.field(view.inputTf, 'nmeGraphics').nmeSurface.innerHTML = "";
+			#end
+		
+		} else {
 			sendMessage(ConsoleViewMessages.EMPTY_MESSAGE, "NO MESSAGE ENTERED!!.....");
 		}
-
 	}
 
 	function handleMessageAdded(message : String) : Void {
-		view.outputTf.text += message + "
-";
-		view.outputTf.textField.scrollV = view.outputTf.textField.maxScrollV;
+		view.outputTf.text += message + "\n";
+		view.outputTf.scrollV = view.outputTf.maxScrollV;
 	}
 
 }

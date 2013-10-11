@@ -1,15 +1,13 @@
-
 ####################
-# flash modular #
+# flash tictactoe #
 ####################
 
--main modularproject.modularsample.ModularSample 
-#-lib openfl
+-main tictactoe.Main 
 #-lib mvcexpress
 -cp lib
 -cp src
 -swf-version 11
--swf bin/modular/flash/Main.swf
+-swf bin/tictactoe/flash/Main.swf
 -swf-header 1024:768:60:FFFFFF
 --no-inline
 
@@ -20,21 +18,22 @@
 -D fdb
 -debug
 
-
 --next
+
+
 #################
-# js modular #
+# js tictactoe #
 #################
 
--main modularproject.modularsample.ModularSample  
--js bin/modular/js/Main.js
+-main tictactoe.Main 
+#-lib mvcexpress
+-js bin/tictactoe/js/Main.js
 -lib openfl
 -lib openfl-html5
-#-lib mvcexpress
 -cp lib
 -cp src
 -D tools=1
--D openfl_ver=1.0.10
+-D openfl_ver=1.0.8
 -D openfl
 -D html5
 -D html

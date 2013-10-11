@@ -75,7 +75,8 @@ class GameScreen extends Sprite
 		dispatchEvent(new GameScreenEvent(GameScreenEvent.CELL_CLICK, Math.floor(backGround.mouseX / CELL_SIZE), Math.floor(backGround.mouseY / CELL_SIZE)));
 	}
 
-	public function addToken(cellCords : Point, cellToken : Int) : Void {
+	public function addToken(cellCords : Point, cellToken : Int) : Void 
+	{
 		trace( "GameScreen.addTocken > cellCords : " + cellCords + ", cellToken : " + cellToken );
 		var token : Sprite = null;
 		if(cellToken == TokenId.TIC)  {
